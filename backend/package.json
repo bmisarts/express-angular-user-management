@@ -1,0 +1,20 @@
+{
+  "name": "yaba-test-api",
+  "version": "1.0.0",
+  "description": "Yaba-in technical test",
+  "main": "server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "Yaba-In",
+    "Technical Test",
+    "Gilles Kemgoum"
+  ],
+  "author": "Gilles Kemgoum",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "validatorjs": "^3.22.1"
+  }
+}
