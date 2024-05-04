@@ -7,7 +7,7 @@ router.get('/', users.index);
 router.get('/:id', users.get);
 router.post('/', users.store);
 router.put('/:id', users.update);
-router.put('/change-status', users.changeStatus);
+router.put('/change-status/:id', users.changeStatus);
 router.delete('/:id', users.remove);
 
 module.exports = router;
