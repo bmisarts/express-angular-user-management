@@ -1,0 +1,48 @@
+<div class="modal fade" id="userCreateModal" tabindex="-1" aria-labelledby="userCreateModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="userCreateModalTitle">Créer un nouvel utilisateur</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <!-- <div class="invalid text-danger"
+            *ngIf="submited">
+            Erreur
+        </div> -->
+        <div class="modal-body">
+          <form [formGroup]="createForm" >
+            <div class="form-floating custom-form-floating custom-form-floating-sm form-group mb-3">                
+                <input type="text"
+                    formControlName="name" 
+                    class="form-control" 
+                    [class.is-invalid]="submited && createForm.get('name')?.hasError('required')" 
+                    placeholder="Entrez le nom"
+                >
+                <label for="floatingInput">Nom</label>
+            </div>
+            <div class="invalid text-danger"
+                *ngIf="submited && createForm.get('name')?.hasError('required')">
+                Le nom est incorrect
+            </div>
+            <div class="form-floating custom-form-floating custom-form-floating-sm form-group mb-3">                
+                <input type="email" 
+                    formControlName="email" 
+                    class="form-control" 
+                    [class.is-invalid]="submited && createForm.get('email')?.hasError('required')" 
+                    placeholder="Entrez l'adresse Email"
+                >
+                <label for="floatingInput">Email</label>
+            </div>
+            <div class="invalid text-danger"
+                *ngIf="submited && createForm.get('email')?.hasError('required')">
+                L'email est incorrect
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+          <button type="button" (click)="onSubmit" class="btn btn-primary">Enregistrer</button>
+        </div>
+      </div>
+    </div>
+</div>

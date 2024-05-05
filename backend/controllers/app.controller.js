@@ -12,7 +12,7 @@ function index(req, res) {
 
 // Exception 404
 function notFound(req, res, next) {
-    res.status(404).json(error(
+    res.status(404).send(error(
         'Ressource non trouvée', 
         'Le chemin que vous essayez d\'atteindre est introuvable'
     ));
