@@ -43,7 +43,11 @@ export class CreateModalComponent implements OnInit {
     }
     this._userService.store(this.createForm.value).then((response) => {
       this.submitted = false;
-      this.createForm.reset();
+      this.createForm = this.fb.group({
+        name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+        email: ['', [Validators.required, Validators.email]],
+        active: [true]
+      });
       this._userListService.getUsers();
       this._httpResponseService.response = {status: true, message: response.message};
     }).catch((err: any) => {

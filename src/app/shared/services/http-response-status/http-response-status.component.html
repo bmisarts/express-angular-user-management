@@ -1,6 +1,8 @@
-<div *ngIf="_httpResponseService.response.status && _httpResponseService.response.message" class="alert alert-success text-success" role="alert">
-    {{ _httpResponseService.response.message }}
+<div *ngIf="_httpResponseService.response.status && _httpResponseService.response.message" class="alert alert alert-left alert-success alert-dismissible fade show" role="alert">
+    <span>{{ _httpResponseService.response.message }}</span>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
-<div *ngIf="!_httpResponseService.response.status && _httpResponseService.response.message" class="alert alert-danger text-danger" role="alert">
-    {{ _httpResponseService.response.message }}
+<div *ngIf="!_httpResponseService.response.status && _httpResponseService.response.message" class="alert alert alert-left alert-danger alert-dismissible fade show" role="alert">
+    <span>{{ _httpResponseService.response.message }}</span>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>

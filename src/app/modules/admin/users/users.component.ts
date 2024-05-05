@@ -1,10 +1,13 @@
 import { DatePipe } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { UserListService } from 'src/app/shared/services/user-list.service';
 import { UserUpdateService } from 'src/app/shared/services/user-update.service';
 import { HttpResponseService } from 'src/app/_services/http-response.service';
 import { UserService } from 'src/app/_services/user.service';
+import Swal from 'sweetalert2';
+import { ToastrService } from 'ngx-toastr';
+
+
 
 @Component({
   selector: 'app-users',
@@ -21,6 +24,7 @@ export class UsersComponent implements OnInit {
     private _userListService: UserListService,
     private _userService: UserService,
     private _updateUserService: UserUpdateService,
+    private toastr: ToastrService,
     public _httpResponseService: HttpResponseService
   ) { }
   
@@ -37,23 +41,38 @@ export class UsersComponent implements OnInit {
   }
   
   deleteUser(id: any) {
-    this._userService.delete(id).then((response) => {
-      this._userListService.getUsers();
-      this._httpResponseService.response = {status: true, message: response.message};
-    }).catch((err: any) => {
-      console.log(err);
-      this._httpResponseService.response = {status: false, message: err.error.message};
-    }) 
+    Swal.fire({
+      title: 'Êtes-vous sûr ?',
+      text: "Vous ne pourrez pas revenir en arrière !",
+      icon: 'warning',
+      reverseButtons: true,
+      showCancelButton: true,
+      confirmButtonColor: 'var(--bs-danger)',
+      cancelButtonColor: 'var(--bs-secondary)',
+      cancelButtonText: 'Annuler',
+      confirmButtonText: 'Oui, supprimer !',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._userService.delete(id).then((response) => {
+          this._userListService.getUsers();
+          this.toastr.success(response.message, 'Ok !');
+        }).catch((err: any) => {
+          console.log(err);
+          this.toastr.error(err.error.message, 'Erreur !');
+        })
+      }
+      
+    })
   }
   
   changeStatus(e: any, id: any) {
     let val = e.target.checked;
     this._userService.status({ active: val }, id).then((response) => {
       this._userListService.getUsers();
-      this._httpResponseService.response = {status: true, message: response.message};
+      this.toastr.success(response.message, 'Ok !');
     }).catch((err: any) => {
       console.log(err);
-      this._httpResponseService.response = {status: false, message: err.error.message};
+      this.toastr.error(err.error.message, 'Erreur !');
     }) 
   
   }

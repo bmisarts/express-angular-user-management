@@ -17,7 +17,6 @@ export class DashboardComponent {
     this._userListService.users$.subscribe((users: any) => {
       this.userLength = users.length;
     });
-    
     this._userListService.getUsers();
   }
   

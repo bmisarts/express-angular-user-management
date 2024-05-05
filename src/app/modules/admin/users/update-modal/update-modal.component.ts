@@ -49,7 +49,6 @@ export class UpdateModalComponent implements OnInit {
     }
     this._userService.update(this.updateForm.value, this.user.id).then((response) => {
       this.submitted = false;
-      this.updateForm.reset();
       this._userListService.getUsers();
       this._httpResponseService.response = {status: true, message: response.message};
     }).catch((err: any) => {

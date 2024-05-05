@@ -7,6 +7,8 @@ import { AdminModule } from './modules/admin/admin.module';
 import { HomeComponent } from './home/home.component';
 import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,11 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     AdminModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 1000, 
+  })
   ],
   providers: [],
   bootstrap: [AppComponent]
