@@ -68,7 +68,6 @@ export class UsersComponent implements OnInit {
   changeStatus(e: any, id: any) {
     let val = e.target.checked;
     this._userService.status({ active: val }, id).then((response) => {
-      this._userListService.getUsers();
       this.toastr.success(response.message, 'Ok !');
     }).catch((err: any) => {
       console.log(err);
