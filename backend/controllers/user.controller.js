@@ -29,10 +29,14 @@ function store(req, res) {
   // Valider les données de l'utilisateur
   const validationErrors = validateCreate(data, existingEmails);
   if (Object.keys(validationErrors).length > 0) {
-    return res.status(400).send(error('Validation des données échouée.', validationErrors));
+    return res.status(400).send(error('Données invalides.', validationErrors));
   }
   
-  newUser = new User(data.name, data.email),
+  newUser = new User(data.name, data.email);
+  
+  if(('active' in data)) {
+    newUser.active = data.active;
+  }
   
   db.users.push(newUser);
   
@@ -54,7 +58,7 @@ function update(req, res) {
   // Valider les données de l'utilisateur
   const validationErrors = validateUpdate(data, existingEmails);
   if (Object.keys(validationErrors).length > 0) {
-    return res.status(400).send(error('Validation des données échouée.', validationErrors));
+    return res.status(400).send(error('Données invalides.', validationErrors));
   }
   
   //Find index of specific object using findIndex method.    
@@ -62,6 +66,7 @@ function update(req, res) {
   //Update object's name property.
   db.users[userIndex].name = data.name ? data.name : db.users[userIndex].name;
   db.users[userIndex].email = data.email ? data.email : db.users[userIndex].email;
+  db.users[userIndex].active = ('active' in data) ? data.active : db.users[userIndex].active;
   db.users[userIndex].updateAt = new Date();
   
   res.status(201).send(success('Utilisateur modifié avec succes.', db.users[userIndex]));
@@ -74,7 +79,7 @@ function changeStatus(req, res) {
     // Valider les données de l'utilisateur
     const validationErrors = validateStatus(data);
     if (Object.keys(validationErrors).length > 0) {
-      return res.status(400).send(error('Validation des données échouée.', validationErrors));
+      return res.status(400).send(error('Données invalides.', validationErrors));
     }
     
     const user = db.users.find(user => user.id === id);
@@ -82,7 +87,7 @@ function changeStatus(req, res) {
       return res.status(404).send(error('Utilisateur non trouvé.'));
     }
     userIndex = db.users.findIndex(user=> user.id == id);
-    db.users[userIndex].active = castToBool(data.active) ? true : false;
+    db.users[userIndex].active = data.active;
     
     res.status(200).send(success('Statut modifié avec succes.', user));
 }
@@ -97,11 +102,6 @@ function remove(req, res) {
   db.users.splice(userIndex ,1);
   
   res.status(200).send(success('Utilisateur supprimé avec succes'));
-}
-
-function castToBool(data){
-  let val = data.toLowerCase();
-  return val == 'true' || val == '1';
 }
 
 module.exports = {

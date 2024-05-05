@@ -1,49 +1,55 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserListService } from 'src/app/shared/services/user-list.service';
+import { UserUpdateService } from 'src/app/shared/services/user-update.service';
 import { HttpResponseService } from 'src/app/_services/http-response.service';
 import { UserService } from 'src/app/_services/user.service';
 
 @Component({
-  selector: 'app-create-modal',
-  templateUrl: './create-modal.component.html',
-  styleUrls: ['./create-modal.component.scss']
+  selector: 'app-update-modal',
+  templateUrl: './update-modal.component.html',
+  styleUrls: ['./update-modal.component.scss']
 })
-export class CreateModalComponent implements OnInit {
+export class UpdateModalComponent implements OnInit {
   
-  createForm!: FormGroup;
+  updateForm!: FormGroup;
   submitted = false;
-  message = '';
+  
+  user: any;
   
   constructor(
     private fb: FormBuilder,
     private _userService: UserService,
     private _userListService: UserListService,
+    private _updateUersErvice: UserUpdateService,
     public _httpResponseService: HttpResponseService,
   ) {}
   
   ngOnInit(): void {
-    this._httpResponseService.response.message = '';
-    this.createForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
-      email: ['', [Validators.required, Validators.email]],
-      active: [true]
+    this._updateUersErvice.selectedUser$.subscribe(user => {
+      this._httpResponseService.response.message = '';
+      this.user = user;
+      this.updateForm = this.fb.group({
+        name: [this.user?.name, [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+        email: [this.user?.email, [Validators.required, Validators.email]],
+        active: [this.user?.active]
+      });
     });
     
     // Reinitialiser l'alert de reponse http
-    this.createForm.valueChanges.subscribe(() => {
+    this.updateForm.valueChanges.subscribe(() => {
       this._httpResponseService.response = {status: false, message: ''};
     });
   }  
   
   onSubmit() {
     this.submitted = true;
-    if (!this.createForm.valid) {
+    if (!this.updateForm.valid) {
       return;
     }
-    this._userService.store(this.createForm.value).then((response) => {
+    this._userService.update(this.updateForm.value, this.user.id).then((response) => {
       this.submitted = false;
-      this.createForm.reset();
+      this.updateForm.reset();
       this._userListService.getUsers();
       this._httpResponseService.response = {status: true, message: response.message};
     }).catch((err: any) => {

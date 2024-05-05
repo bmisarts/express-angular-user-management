@@ -14,6 +14,16 @@ const userRoutes = require('./routes/user.routes');
 
 const app = express();
 
+// Configuration websocket
+const http = require('http');
+const server = http.Server(app);
+const socketIO = require('socket.io');
+const io = socketIO(server, {
+  cors: {
+    origin: "*"
+  }
+});
+
 var corsOptions = {
   origin: "http://localhost:4200"
   // origin: "*"

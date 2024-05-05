@@ -19,6 +19,12 @@ function validateCreate(data, existingEmails) {
     } else if (existingEmails && existingEmails.includes(data.email)) {
         errors.email = ['Cette adresse e-mail est déjà utilisée.'];
     }
+    
+    // Vérifier que le statut est un booléen
+    if (('active' in data)) {
+       if (!(typeof data.active === 'boolean')) 
+            errors.active = ['Le statut doit être un booléen.'];
+    }
 
     return errors;
 }
@@ -46,6 +52,12 @@ function validateUpdate(data, existingEmails) {
         if (existingEmails && existingEmails.includes(data.email)) {
             errors.email = ['Cette adresse e-mail est déjà utilisée.'];
         }
+        
+        // Vérifier que le statut est un booléen
+        if (('active' in data)) {
+           if (!(typeof data.active === 'boolean')) 
+                errors.active = ['Le statut doit être un booléen.'];
+        }
     }
 
     return errors;
@@ -56,9 +68,9 @@ function validateStatus(data) {
     const errors = {};
 
     // Vérifier que le statut est un booléen
-    if (!data.active) {
+    if (!('active' in data)) {
         errors.active = ['Le statut est requis.'];
-    } else if (!validator.isBoolean(data.active)) {
+    } else if (!(typeof data.active === 'boolean')) {
         errors.active = ['Le statut doit être un booléen.'];
     }
 

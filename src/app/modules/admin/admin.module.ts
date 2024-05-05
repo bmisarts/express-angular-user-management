@@ -7,6 +7,7 @@ import { UsersComponent } from './users/users.component';
 import { IndexComponent } from './index/index.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CreateModalComponent } from './users/create-modal/create-modal.component';
+import { UpdateModalComponent } from './users/update-modal/update-modal.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { CreateModalComponent } from './users/create-modal/create-modal.componen
     UsersComponent,
     IndexComponent,
     CreateModalComponent,
+    UpdateModalComponent,
   ],
   imports: [
     CommonModule,

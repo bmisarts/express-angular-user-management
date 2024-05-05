@@ -1,27 +1,27 @@
-<div class="modal fade" id="userCreateModal" tabindex="-1" aria-labelledby="userCreateModalTitle" aria-hidden="true">
+<div class="modal fade" id="userUpdateModal" tabindex="-1" aria-labelledby="userUpdateModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="userCreateModalTitle">Créer un nouvel utilisateur</h5>
+          <h5 class="modal-title" id="userUpdateModalTitle">Créer un nouvel utilisateur</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form (ngSubmit)="onSubmit()" [formGroup]="createForm">
+        <form (ngSubmit)="onSubmit()" [formGroup]="updateForm">
           <div class="modal-body">
             <app-http-response-status></app-http-response-status>
             <div class="form-floating custom-form-floating custom-form-floating-sm form-group mb-3">
               <input type="text"
                      formControlName="name"
                      class="form-control"
-                     [class.is-invalid]="submitted && createForm.get('name')?.invalid"
+                     [class.is-invalid]="submitted && updateForm.get('name')?.invalid"
                      placeholder="Entrez le nom">
               <label for="floatingInput">Nom</label>
-              <div class="invalid text-danger" *ngIf="submitted && createForm.get('name')?.hasError('required')">
+              <div class="invalid text-danger" *ngIf="submitted && updateForm.get('name')?.hasError('required')">
                 Le nom est requis
               </div>
-              <div class="invalid text-danger" *ngIf="submitted && createForm.get('name')?.hasError('minlength')">
+              <div class="invalid text-danger" *ngIf="submitted && updateForm.get('name')?.hasError('minlength')">
                 Le nom doit comporter au moins 4 caractères
               </div>
-              <div class="invalid text-danger" *ngIf="submitted && createForm.get('name')?.hasError('maxlength')">
+              <div class="invalid text-danger" *ngIf="submitted && updateForm.get('name')?.hasError('maxlength')">
                 Le nom ne peut pas dépasser 50 caractères
               </div>
             </div>
@@ -29,13 +29,13 @@
               <input type="email"
                      formControlName="email"
                      class="form-control"
-                     [class.is-invalid]="submitted && createForm.get('email')?.invalid"
+                     [class.is-invalid]="submitted && updateForm.get('email')?.invalid"
                      placeholder="Entrez l'adresse Email">
               <label for="floatingInput">Email</label>
-              <div class="invalid text-danger" *ngIf="submitted && createForm.get('email')?.hasError('required')">
+              <div class="invalid text-danger" *ngIf="submitted && updateForm.get('email')?.hasError('required')">
                 L'email est requis
               </div>
-              <div class="invalid text-danger" *ngIf="submitted && createForm.get('email')?.hasError('email')">
+              <div class="invalid text-danger" *ngIf="submitted && updateForm.get('email')?.hasError('email')">
                 L'email est incorrect
               </div>
             </div>
@@ -43,9 +43,9 @@
               <input type="checkbox"
                      formControlName="active"
                      class="form-check-input form-control"
-                     [class.is-invalid]="submitted && createForm.get('active')?.invalid">
+                     [class.is-invalid]="submitted && updateForm.get('active')?.invalid">
               <label for="floatingInput">Statut</label>
-              <div class="invalid text-danger" *ngIf="submitted && createForm.get('active')?.hasError('required')">
+              <div class="invalid text-danger" *ngIf="submitted && updateForm.get('active')?.hasError('required')">
                 Le statut est requis
               </div>
             </div>

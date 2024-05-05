@@ -6,7 +6,7 @@ import { BackToTopComponent } from './back-to-top/back-to-top.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoaderComponent } from './loader/loader.component';
 import { RouterModule } from '@angular/router';
-
+import { HttpResponseStatusComponent } from './services/http-response-status/http-response-status.component';
 @NgModule({
   declarations: [
     SidebarComponent,
@@ -14,10 +14,11 @@ import { RouterModule } from '@angular/router';
     BackToTopComponent,
     FooterComponent,
     LoaderComponent,
+    HttpResponseStatusComponent,
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
   ],
   exports: [
     SidebarComponent,
@@ -25,6 +26,7 @@ import { RouterModule } from '@angular/router';
     BackToTopComponent,
     FooterComponent,
     LoaderComponent,
+    HttpResponseStatusComponent
   ]
 })
 export class SharedModule { }
